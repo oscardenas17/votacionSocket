@@ -14,7 +14,7 @@
   </head>
   <body>
     <div class="container-sm">
-      <form action="" class="row mt-5">
+      <form action="" class="row mt-5" id="miformulario">
         <div class="row">
           <div class="col-3">
             <input
@@ -27,8 +27,7 @@
           </div>
           <div class="col">
             <input
-              id="segundonombre"        
-       
+              id="segundonombre"
               class="form-control"
               placeholder="Segundo nombre"
               aria-label="Last name"
@@ -37,7 +36,7 @@
 
           <div class="col">
             <input
-              id="apellidos"           
+              id="apellidos"
               type="text"
               class="form-control"
               placeholder="Apellidos"
@@ -56,21 +55,48 @@
           </div>
 
           <div class="col">
-            <button id="btnEnviar" class="btn btn-info btn-lg">Llamar Turno</button>
+            <button id="btnEnviar" class="btn btn-info btn-lg">
+              Llamar Turno
+            </button>
           </div>
-
-          
         </div>
-
-
       </form>
     </div>
 
     <script src="./socket.io/socket.io.js"></script>
-    <script src="./js/datoTurno.js">
-        socket.on('mensaje-to-server', (data) =>{
-            console.log(data) 
-        })
+    <script>
+             const socket = io('http://localhost:4000')
+
+
+      socket.on('current-bands', (data) =>{
+  
+          console.log(data)
+      })
+
+
+
+             // //referencias del DOM
+              const formulario = document.querySelector('#miformulario')
+              const primernombre = document.querySelector('#primernombre')
+              const segundonombre = document.querySelector('#segundonombre')
+              const apellidos = document.querySelector('#apellidos')
+              const consultorio = document.querySelector('#consultorio')
+
+
+             formulario.addEventListener('submit', (e) => {
+                  e.preventDefault()
+
+                 const txtNombre = primernombre.value;
+                 const txtApellido = primernombre.value;
+                
+
+                  socket.emit('mensaje-to-server', {
+                      nombre: `${txtNombre} ${txtApellido}`,
+                      consultorio: consultorio.value
+                  })
+             })
+
+            
     </script>
 
     <!-- <script >
