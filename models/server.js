@@ -11,8 +11,6 @@ const Sockets  = require('./sockets');
 class Server {
 
     constructor() {
-
-
         this.app  = express();
         this.port = process.env.PORT;
 
@@ -29,16 +27,13 @@ class Server {
 
         // CORS
         this.app.use( cors() );
-
     }
-
   
     configurarSockets() {
         new Sockets( this.io );
     }
-
+    
     execute() {
-
         // Inicializar Middlewares
         this.middlewares();
 

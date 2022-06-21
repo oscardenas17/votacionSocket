@@ -1,61 +1,72 @@
-//Reference HTML
-const primernombre  = document.querySelector('#primernombre');
-const segundonombre  = document.querySelector('#segundonombre');
-const apellidos  = document.querySelector('#apellidos');
-const consultorio  = document.querySelector('#consultorio');
-const btnCrear = document.querySelector('#btnEnviar');
 
-const socket = io(); 
+console.log('desde datoturno');
+const socket = io('http://localhost:4000')
 
+// //referencias del DOM
+const formulario = document.querySelector('#miformulario')
+const primernombre = document.querySelector('#primernombre')
+const segundonombre = document.querySelector('#segundonombre')
+const apellidos = document.querySelector('#apellidos')
+const consultorio = document.querySelector('#consultorio')
 
-btnCrear.addEventListener( 'click', () => {
-
-    const pnombre = primernombre.value;
-    const senombre = segundonombre.value;
-    const apellido = apellidos.value;
-    const consul  = consultorio.value;
+// const socket = io(); 
 
 
-    const payload = {
-        pnombre,
-        senombre,
-        apellido,
-        consul,
-               
-        // fecha: new Date().getTime()
-    }
+
+formulario.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+   const txtNombre = `${primernombre.value}  ${segundonombre.value}  ${apellidos.value}` ;
+   const txtConsultorio = consultorio.value
+  
+    const datos = {txtNombre, txtConsultorio}
     
-    socket.emit( 'enviar-mensaje', payload, (  ) => {
-        console.log('Desde el server para enviar datos',  );
-    });
-});
 
-// this.on('connect', () => {
-//      console.log('Conectado');
+//    const Turnos = []
+//   Turnos.push(datos)
+//   console.log(Turnos)
+   //Emitir 
+    //socket.emit('dato-turno', [Turnos] )
 
+     socket.emit('dato-turno-server', { 
+        nombre: txtNombre,
+        consultorio:txtConsultorio
+    }
+        
  
-//     // lblOffline.style.display = 'none';
-//     // lblOnline.style.display  = '';
+    )
 
-// });
-
-
-// this.on('disconnect', () => {
-//     console.log('Desconectado del servidor');
- 
-//     // lblOnline.style.display  = 'none';
-//     // lblOffline.style.display = '';
-// });
-
-
-
+})
 // btnCrear.addEventListener( 'click', () => {
-//     console.log('Desde el boton ', );
-//     this.emit( 'siguiente-ticket', null, (   ) => {
-//         lblNuevoTicket.innerText = ticket;
-//         console.log('Desde el boton ', );
+
+//     const pnombre = primernombre.value;
+//     const senombre = segundonombre.value;
+//     const apellido = apellidos.value;
+//     const consul  = consultorio.value;
+
+
+//     const payload = {
+//         pnombre,
+//         senombre,
+//         apellido,
+//         consul,
+               
+//         // fecha: new Date().getTime()
+//     }
+    
+//     socket.emit( 'enviar-mensaje', payload, (  ) => {
+//         console.log('Desde el server para enviar datos',  );
 //     });
-   
 // });
 
-console.log('Nuevo Ticket HTML');
+
+// // btnCrear.addEventListener( 'click', () => {
+// //     console.log('Desde el boton ', );
+// //     this.emit( 'siguiente-ticket', null, (   ) => {
+// //         lblNuevoTicket.innerText = ticket;
+// //         console.log('Desde el boton ', );
+// //     });
+   
+// // });
+
+// console.log('Nuevo Ticket HTML');
