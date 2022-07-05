@@ -8,7 +8,7 @@ const primernombre = document.querySelector('#primernombre')
 const segundonombre = document.querySelector('#segundonombre')
 const apellidos = document.querySelector('#apellidos')
 const consultorio = document.querySelector('#consultorio')
-
+const centro = document.querySelector('#centro')
 // const socket = io(); 
 
 
@@ -18,8 +18,14 @@ formulario.addEventListener('submit', (e) => {
 
    const txtNombre = `${primernombre.value}  ${segundonombre.value}  ${apellidos.value}` ;
    const txtConsultorio = consultorio.value
+   const txtCentro = centro.value
+
+//    let nombre= {
+//     txtNombre,
+//     txtConsultorio
+//    }
+//    let ciudad = {txtCentro}
   
-    const datos = {txtNombre, txtConsultorio}
     
 
 //    const Turnos = []
@@ -29,8 +35,9 @@ formulario.addEventListener('submit', (e) => {
     //socket.emit('dato-turno', [Turnos] )
 
      socket.emit('dato-turno-server', { 
-        nombre: txtNombre,
-        consultorio:txtConsultorio
+        txtNombre,
+        txtConsultorio,
+        txtCentro
     }
         
  
